@@ -1,3 +1,5 @@
+THIS REPOSITORY IS LOOKING FOR A MAINTAINER. IF YOU USE THIS TOOL, CONSIDER MAINTAINING IT.
+
 README File for fmrib EEGLAB plugin
 
 This plugin for EEGLAB adds a menu item under 'Tools' called
