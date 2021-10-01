@@ -70,7 +70,7 @@
 
 function vers = eegplugin_fmrib(fig,try_strings,catch_strings)
 
-vers='fmrib2.00';
+vers='fmrib2.1';
 
 if nargin < 3
     error('eegplugin_fmrib requires 3 arguments');
