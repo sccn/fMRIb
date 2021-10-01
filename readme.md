@@ -63,6 +63,9 @@ despite being told not to do so.
 
 See https://sccn.ucsd.edu/bugzilla/show_bug.cgi?id=1520
 
+Changes in V2.1
+Fix version display issue in EEGLAB, no other changes.
+
 -----------------------
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
