@@ -54,7 +54,7 @@ Niazy RK, Beckmann CF, Iannetti GD, Brady JM, Smitha SM. Neuroimage. 2005, 28(3)
 
 ## Changes in V2.0
 
-1) When the last gradient pulse sequence is too near the end of the EEG
+When the last gradient pulse sequence is too near the end of the EEG
 recording, FASTR properly generates a warning but then crashes.  2) When a flat
 reference channel is in the dataset, FASTR's adaptive noise cancellation option
 tries to correct it, resulting in NaNs.  3) Pulse artifact subtraction function
