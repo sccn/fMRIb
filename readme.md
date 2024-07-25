@@ -1,25 +1,6 @@
 THIS REPOSITORY IS LOOKING FOR A MAINTAINER. IF YOU USE THIS TOOL, CONSIDER MAINTAINING IT.
 
-# Introduction
-The FMRIB plugin is included in EEGLAB and was developed in 2005 by Rami Niazi. However it is no longer supported.
-
-Removal of FMRI environment artifacts from EEG data using optimal basis sets. Niazy RK, Beckmann CF, Iannetti GD, Brady JM, Smitha SM. Neuroimage. 2005, 28(3):720-737.
-
-See also
-
-Improved quality of auditory event-related potentials recorded simultaneously with 3-T fMRI: removal of the ballistocardiogram artefact. Debener S, Strobel A, Sorger B, Peters J, Kranczioch C, Engel AK, Goebel R. Neuroimage. 2007, 34(2)587-97.
-
-Other than FMRIB, BERGEN is a very nice EEGLAB plugin for fMRI-EEG. This supports a function which helps to reduce an effect of head movement.
-
-Realignment parameter-informed artefact correction for simultaneous EEG–fMRI recordings. Moosmann M, Schönfelder VH, Specht K, Scheeringa R, Nordby H, Hugdahl K. Neuroimage. 2009, 45(4):1144-50. http://sccn.ucsd.edu/wiki/EEGLAB_Plugins http://fmri.uib.no/tools/bergen_plugin.htm
-
-Another recommended application for this purpose is FASST which is a plug-in for SPM but you can still import data to EEGLAB. This works literally fast, and equipped with a constrained ICA for BCG rejection, which is one of the most sophisticated solutions for BCG rejection.
-
-Rejection of pulse related artefact (PRA) from continuous electroencephalographic (EEG) time series recorded during functional magnetic resonance imaging (fMRI) using constraint independent component analysis (cICA). Leclercq Y, Balteau E, Dang-Vu T, Schabus M, Luxen A, Maquet P, Phillips C. Neuroimage. 2009, 44(3):679-91.
-
-http://www.montefiore.ulg.ac.be/~phillips/FASST.html
-
-# fmrib EEGLAB plugin
+# the fMRIb EEGLAB plugin
 
 This plugin for EEGLAB adds a menu item under 'Tools' called
 'FMRIB Tools' for removing artifacts form EEG data collected with FMRI.
@@ -46,11 +27,30 @@ event structure.  It has been working quite robustly even with quite bad ECGs.  
 3. Pulse artifact removal.   Uses events from (2) to remove pulse 
 artifacts using different methods of constructing an artifact template. 
 
- Copyright (C) 2004 Rami K. Niazy, FMRIB Centre, University of Oxford
- rami@fmrib.ox.ac.uk
+Copyright (C) 2004 Rami K. Niazy, FMRIB Centre, University of Oxford rami@fmrib.ox.ac.uk
 
------------------------
-Changes in V2.0
+# Introduction
+The FMRIB plugin is included in EEGLAB and was developed in 2005 by Rami Niazi. However it is no longer supported.
+
+Removal of FMRI environment artifacts from EEG data using optimal basis sets. Niazy RK, Beckmann CF, Iannetti GD, Brady JM, Smitha SM. Neuroimage. 2005, 28(3):720-737.
+
+See also
+
+Improved quality of auditory event-related potentials recorded simultaneously with 3-T fMRI: removal of the ballistocardiogram artefact. Debener S, Strobel A, Sorger B, Peters J, Kranczioch C, Engel AK, Goebel R. Neuroimage. 2007, 34(2)587-97.
+
+Other than FMRIB, BERGEN is a very nice EEGLAB plugin for fMRI-EEG. This supports a function which helps to reduce an effect of head movement.
+
+Realignment parameter-informed artefact correction for simultaneous EEG–fMRI recordings. Moosmann M, Schönfelder VH, Specht K, Scheeringa R, Nordby H, Hugdahl K. Neuroimage. 2009, 45(4):1144-50. http://sccn.ucsd.edu/wiki/EEGLAB_Plugins http://fmri.uib.no/tools/bergen_plugin.htm
+
+Another recommended application for this purpose is FASST which is a plug-in for SPM but you can still import data to EEGLAB. This works literally fast, and equipped with a constrained ICA for BCG rejection, which is one of the most sophisticated solutions for BCG rejection.
+
+Rejection of pulse related artefact (PRA) from continuous electroencephalographic (EEG) time series recorded during functional magnetic resonance imaging (fMRI) using constraint independent component analysis (cICA). Leclercq Y, Balteau E, Dang-Vu T, Schabus M, Luxen A, Maquet P, Phillips C. Neuroimage. 2009, 44(3):679-91.
+
+http://www.montefiore.ulg.ac.be/~phillips/FASST.html
+
+# Version history
+
+## Changes in V2.0
 
 1) When the last gradient pulse sequence is too near the end of the EEG
 recording, FASTR properly generates a warning but then crashes.  2) When a flat
@@ -63,20 +63,6 @@ despite being told not to do so.
 
 See https://sccn.ucsd.edu/bugzilla/show_bug.cgi?id=1520
 
-Changes in V2.1
+## Changes in V2.1
 Fix version display issue in EEGLAB, no other changes.
 
------------------------
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
-
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
