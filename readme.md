@@ -2,9 +2,7 @@ THIS REPOSITORY IS LOOKING FOR A MAINTAINER. IF YOU USE THIS TOOL, CONSIDER MAIN
 
 # the fMRIb EEGLAB plugin
 
-Removal of FMRI environment artifacts from EEG data using optimal basis sets. 
-
-This plugin for EEGLAB adds a menu item under 'Tools' called
+Removal of FMRI environment artifacts from EEG data using optimal basis sets. This plugin for EEGLAB adds a menu item under 'Tools' called
 'FMRIB Tools' for removing artifacts form EEG data collected with FMRI.
 
 ## Instalation
