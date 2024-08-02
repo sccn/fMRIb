@@ -52,19 +52,14 @@ Niazy RK, Beckmann CF, Iannetti GD, Brady JM, Smitha SM. Neuroimage. 2005, 28(3)
 
 # Version history
 
-## Changes in V2.0
-
-When the last gradient pulse sequence is too near the end of the EEG
+* V2.0 -- When the last gradient pulse sequence is too near the end of the EEG
 recording, FASTR properly generates a warning but then crashes.  2) When a flat
 reference channel is in the dataset, FASTR's adaptive noise cancellation option
 tries to correct it, resulting in NaNs.  3) Pulse artifact subtraction function
 tries to correct flat reference channels resulting in crash.  4) Pulse artifact
 subtraction function trying to correct ECG channel despite being told not to do
 so.  5) FASTR's adaptive noise cancellation option tries to correct ECG channel
-despite being told not to do so.
+despite being told not to do so. See https://sccn.ucsd.edu/bugzilla/show_bug.cgi?id=1520
 
-See https://sccn.ucsd.edu/bugzilla/show_bug.cgi?id=1520
-
-## Changes in V2.1
-Fix version display issue in EEGLAB, no other changes.
+* V2.1 -- Fix version display issue in EEGLAB, no other changes.
 
