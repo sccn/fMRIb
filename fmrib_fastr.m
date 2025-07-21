@@ -300,17 +300,17 @@ if lpf>0
         error('LPF cutoff frequency to close to Nyquist frequency.',...
             'fmrib_fastr() error!');
     end
-    
+
     filtorder=round(minfac*fix(fs/lpf));
-    
+
     if filtorder < minorder
         filtorder=minorder;
     end
-    
+
     if rem(filtorder,2)~=0
         filtorder=filtorder+1;
     end
-    
+
     f=[0 lpf/nyq lpf*(1+trans)/nyq 1];
     a=[1 1 0 0];
     lpfwts=firls(filtorder,f,a);
@@ -385,7 +385,7 @@ if sections>1
             SecTENDFlag=1;
             break;
         end
-        
+
         secpeaks=peaks(d1:(d1-1)+floor(SecT*fs)+pad_sec);
         tmpmarker=find(secpeaks==1)*L;
         if strig==1
@@ -437,7 +437,7 @@ W=zeros(N+1,1);
 % -----------------------------------------------
 
 while sec<=sections
-    
+
     if sec==1 & sections > 1
         rempeaks=peaks((d1-1)+sec*floor(fs*SecT)+1:d2);
         remmarker=find(rempeaks==1);
@@ -462,7 +462,7 @@ while sec<=sections
             sec=sections;
         end
     end
-    
+
     tmpmarker=find(secpeaks==1)*L;
     markerl(SCount)=length(tmpmarker);
     if sec==1 | sec==sections
@@ -495,7 +495,7 @@ steps=(sections+1)*m;
 pcamat=zeros(floor(max(markerl)/2),pre_peak+max_postpeak+1);
 
 for sec=1:sections
-    
+
     if sec==1
         barth=5;
         barth_step=barth;
@@ -504,7 +504,7 @@ for sec=1:sections
         Flag75=0;
         fprintf('\nStage 1 of 2: Slice Alignment\n')
     end
-    
+
     if L > 1
         if sec==1 & sections > 1
             Idata=interp(EEG.data(c,d1:(d1-1)+secl(sec)+pad_sec),L,4,1);
@@ -529,7 +529,7 @@ for sec=1:sections
                 (d1-1)+sum(secl(1:sec))+pad_sec);
         end
     end
-    
+
     if sec==1
         ml=0;
         if sections>1
@@ -558,8 +558,8 @@ for sec=1:sections
         starts=sum(markerl(1:SCount-1))+2;
         lasts=sum(markerl(1:SCount))-2;
     end
-    
-    
+
+
     for s=starts:lasts
         if s==starts & sec==1
             try
@@ -570,7 +570,7 @@ for sec=1:sections
                     Idata(secmarker(s+1)-pre_peak:secmarker(s+1)+post_peak);
             end
         end
-        
+
         if sec==sections & s==lasts
             try
                 ppn=1;
@@ -595,12 +595,12 @@ for sec=1:sections
             adjust=CP-(searchw+1);
             secmarker(s)=secmarker(s)+adjust;
         end
-        
+
         tcount=tcount+1;
         percentdone=floor(tcount*100/ml);
-        
+
         if floor(percentdone)>=barth
-            
+
             if percentdone>=25 & Flag25==0
                 fprintf('25%% ')
                 Flag25=1;
@@ -615,7 +615,7 @@ for sec=1:sections
             else
                 fprintf('.')
             end
-            
+
             while barth<=percentdone
                 barth=barth+barth_step;
             end
@@ -623,7 +623,7 @@ for sec=1:sections
                 barth=100;
             end
         end
-        
+
     end
     SCount=SCount+1;
 end
@@ -632,7 +632,7 @@ secmarker2=secmarker;
 % Construct Artifacts and Subtract
 % ---------------------------------
 try
-    for c=1:m        
+    for c=1:m
         % Progress bar Init
         if c==1
             barth=5;
@@ -642,17 +642,17 @@ try
             Flag75=0;
             fprintf('\nStage 2 of 2: Artifact Subtraction\n');
         end
-        
-        
-        
-        
+
+
+
+
         tmpdata=EEG.data(c,:)-mean(EEG.data(c,:));
-        
+
         cleanEEG=EEG.data(c,:);
-        
+
         % Process in sections of SecT seconds for memory concerns
         for sec=1:sections
-            
+
             if L > 1
                 if sec==1 & sections > 1
                     Idata=interp(tmpdata(d1:(d1-1)+secl(sec)+pad_sec),L,4,1);
@@ -688,11 +688,11 @@ try
                         (d1-1)+sum(secl(1:sec))+pad_sec);
                 end
             end
-            
+
             INoise=zeros(1,length(Idata));
-            
+
             %Average Artifacts & Subtract
-            
+
             if sections==1
                 starts=1;
                 lasts=markerl(sec);
@@ -706,11 +706,11 @@ try
                 starts=sum(markerl(1:sec-1))+2;
                 lasts=sum(markerl(1:sec))-2;
             end
-            
+
             for s=starts:lasts
-                
+
                 if strig==1 % Slice Triggers
-                    
+
                     if s==starts
                         art=1;
                         ssc=1;
@@ -747,9 +747,9 @@ try
                                 art=1;
                         end
                     end
-                    
+
                 elseif strig==0  % Volume/Section Triggers
-                    
+
                     if s==starts
                         art=1;
                         ssc=1;
@@ -768,7 +768,7 @@ try
                         avg_art=mean(slice_art1,1);
                     end
                 end
-                
+
                 % For first channel, find shift in artifact position to minimise
                 % sum of squared error between data and artifact template
                 % - Assume same shift applies for all channels-
@@ -793,7 +793,7 @@ try
                         else
                             Alpha=1;
                         end
-                        
+
                         INoise(secmarker2(s)-pre_peak:secmarker2(s)+...
                             post_peak)=Alpha*avg_art;
                     catch
@@ -825,7 +825,7 @@ try
                         else
                             Alpha=1;
                         end
-                        
+
                         if secmarker2(s)+post_peak <= length(Iorig) %fix so that when it goes beyond the end of the data, does not later on cause crash
                             INoise(secmarker2(s)-pre_peak:secmarker2(s)+post_peak)...
                                 =Alpha*avg_art;
@@ -854,21 +854,21 @@ try
                     else
                         Alpha=1;
                     end
-                    
+
                     INoise(secmarker2(s)-pre_peak:secmarker2(s)+post_peak)=...
                         Alpha*avg_art;
                 end
-                
-                
+
+
                 if s==starts+1
                     c;
                 end
             end
-            
-            
+
+
             %----------PCA of residuals-------------------
             fitted_res=zeros(length(INoise),1);
-            
+
             if isempty(intersect(exc,c)) & npc~=0
                 Ipca=filtfilt(hpfwts,1,double(Idata-INoise));
                 pccount=1;
@@ -877,8 +877,8 @@ try
                 if strig~=1
                     pick=[pick(1):pick(end)];
                 end
-                
-                
+
+
                 for s=starts+1:lasts-1
                     % construct PCAMAT
                     if skcount==pick(pccount)
@@ -889,10 +889,10 @@ try
                     end
                     skcount=skcount+1;
                 end
-                
+
                 pcamat=detrend(pcamat','constant')';
                 [apc,ascore,asvar]=pca_calc(pcamat(1:(pccount-1),:)');
-                
+
                 oev=100*asvar/sum(asvar);
                 if sec==1
                     if ischar(npc)
@@ -914,52 +914,53 @@ try
                         pcs=npc;
                     end
                 end
-                
+
                 % TEST CODE
                 %             SPCS(c)=SLOPETH_PC;
                 %             CPCS(c)=CUMVARTH_PC;
                 %             VPCS(c)=VAREXPTH_PC;
                 %             PCS(c)=pcs;
-                
-                
+
+
                 if strig==0
                     papc=double([ascore(:,1:pcs) ones(pre_peak+max_postpeak+1,1)]);
                 else
                     papc=double([ascore(:,1:pcs)]);
                 end
-                
-                
+
+
                 minmax1=max(papc(:,1))-min(papc(:,1));
                 for apc=2:pcs
                     papc(:,apc)=papc(:,apc)*minmax1/...
                         (max(papc(:,apc))-min(papc(:,apc)));
                 end
-                
+
                 for s=starts:lasts
+                    %HY fix for ind out of bound bug
+                    start_idx = max(secmarker(s) - pre_peak, 1);
+                    end_idx   = min(secmarker(s) + max_postpeak, length(Ipca));
+                    win_len   = end_idx - start_idx + 1;
+
+                    % Trim papc to match window length
+                    this_papc = papc(1:win_len, :);  % Only take rows matching data length
                     if s==1
                         if ~STARTFLAG
-                            fitted_res(secmarker(s)-pre_peak:secmarker(s)+max_postpeak)=...
-                                papc*(papc\...
-                                double(Ipca(secmarker(s)-pre_peak:...
-                                secmarker(s)+max_postpeak))');
+                            % Fit and assign result
+                            fitted_res(start_idx:end_idx) = this_papc * (this_papc \ double(Ipca(start_idx:end_idx))');
                         end
                     elseif s==lasts & sec==sections
                         if ~LASTFLAG
-                            fitted_res(secmarker(s)-pre_peak:secmarker(s)+max_postpeak)=...
-                                papc*(papc\...
-                                double(Ipca(secmarker(s)-pre_peak:...
-                                secmarker(s)+max_postpeak))');
+                            % Fit and assign result
+                            fitted_res(start_idx:end_idx) = this_papc * (this_papc \ double(Ipca(start_idx:end_idx))');
                         end
                     else
-                        fitted_res(secmarker(s)-pre_peak:secmarker(s)+max_postpeak)=...
-                            papc*(papc\...
-                            double(Ipca(secmarker(s)-pre_peak:...
-                            secmarker(s)+max_postpeak))');
+                        % Fit and assign result
+                        fitted_res(start_idx:end_idx) = this_papc * (this_papc \ double(Ipca(start_idx:end_idx))');
                     end
                 end
-                
+
             elseif strig==0 % not doing OBS and using volume triggers
-                
+
                 Ipca=Idata-INoise;
                 papc=double(ones(pre_peak+max_postpeak+1,1));
                 for s=starts:lasts
@@ -984,13 +985,13 @@ try
                             secmarker(s)+max_postpeak))');
                     end
                 end
-                
+
             end
-            
+
             %-----------------end PCA Section------------------
-            
+
             Idata=Iorig-INoise-fitted_res';
-            
+
             if L > 1
                 fcleanEEG=decimate2(Idata,L);
                 fNoise=decimate2(INoise+fitted_res',L);
@@ -998,8 +999,8 @@ try
                 fcleanEEG=Idata;
                 fNoise=INoise+fitted_res';
             end
-            
-            
+
+
             if sec==1
                 if sections==1
                     cleanEEG(d1:d2)=fcleanEEG;
@@ -1018,13 +1019,13 @@ try
                 Noise((d1-1)+sum(secl(1:sec-1))+1:(d1-1)+sum(secl(1:sec)))=...
                     fNoise(pad_sec+1:end-pad_sec);
             end
-            
-            
+
+
             %Update progress bar
             scount=scount+1;
             percentdone=floor(scount*100/steps);
             if floor(percentdone)>=barth
-                
+
                 if percentdone>=25 & Flag25==0
                     fprintf('25%% ')
                     Flag25=1;
@@ -1039,7 +1040,7 @@ try
                 else
                     fprintf('.')
                 end
-                
+
                 while barth<=percentdone
                     barth=barth+barth_step;
                 end
@@ -1048,12 +1049,12 @@ try
                 end
             end
         end
-        
+
         if lpf>0
             cleanEEG=filtfilt(lpfwts,1,double(cleanEEG));
             Noise=filtfilt(lpfwts,1,double(Noise));
         end
-        
+
         if (anc_chk==1) && isempty(intersect(exc,c))
             % Adaptive Noise cancellation
             % ---------------------------
@@ -1074,11 +1075,11 @@ try
         else
             EEG.data(c,d1:d2)=cleanEEG(d1:d2);
         end
-        
+
         scount=scount+1;
         percentdone=floor(scount*100/steps);
         if floor(percentdone)>=barth
-            
+
             if percentdone>=25 & Flag25==0
                 fprintf('25%% ')
                 Flag25=1;
@@ -1093,7 +1094,7 @@ try
             else
                 fprintf('.')
             end
-            
+
             while barth<=percentdone
                 barth=barth+barth_step;
             end
@@ -1102,7 +1103,9 @@ try
             end
         end
     end
-catch
+catch ME
+    disp('An error occurred:');
+    disp(getReport(ME, 'extended'));
     keyboard
 end;
 
